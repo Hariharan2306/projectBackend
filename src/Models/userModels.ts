@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 interface UserData extends Document {
   userId: string;
   userName: string;
+  password: string;
   mobile: string;
   location: string;
   email: string;
@@ -13,7 +14,9 @@ interface UserData extends Document {
 
 const usersSchema: Schema = new Schema(
   {
-    userName: { type: String },
+    userId: { type: String, unique: true },
+    userName: { type: String, unique: true },
+    password: { type: String },
     mobile: { type: String },
     location: { type: String },
     email: { type: String },
