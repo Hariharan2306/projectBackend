@@ -8,7 +8,7 @@ export const loginService = async ({ userMail, password }: LoginUserData) => {
     const data = await usersModel
       .findOne(
         { userName: userMail, password },
-        { _id: 0, email: 1, userName: 1 }
+        { _id: 0, email: 1, userName: 1, location: 1 }
       )
       .lean();
     if (!data) throw new Error("Invalid Credentials");
