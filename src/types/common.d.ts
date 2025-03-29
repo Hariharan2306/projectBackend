@@ -6,4 +6,8 @@ export type CreateUserData = {
   reciever: boolean;
   registeredId: string;
 };
-export type LoginUserData = { userMail: string; password: string };
+export type LoginUserData = {
+  userMail: string;
+  password: string;
+  isReciever: boolean;
+};
