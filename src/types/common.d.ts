@@ -11,3 +11,15 @@ export type LoginUserData = {
   password: string;
   isReciever: boolean;
 };
+
+export interface DonationData extends LoggedUserData {
+  quantity: number;
+  location: string;
+  time: Date;
+  productType: string;
+}
+export interface LoggedUserData {
+  userName: string;
+  email: string;
+  userType: "Reciever" | "Donor";
+}

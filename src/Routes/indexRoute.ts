@@ -5,6 +5,6 @@ import donationRouter from "./donationRoutes";
 const indexRouter = Router();
 
 indexRouter.use("/users", usersRouter);
-indexRouter.use("/usersdonations", donationRouter);
+indexRouter.use("/donations", donationRouter);
 
 export default indexRouter;

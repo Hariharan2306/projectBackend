@@ -6,7 +6,7 @@ import {
 
 const donationRouter = Router();
 
-donationRouter.post("addDonation", addDonationController);
-donationRouter.get("fetchDonations", fetchDonationController);
+donationRouter.post("/addDonation", addDonationController);
+donationRouter.get("/fetchDonations", fetchDonationController);
 
 export default donationRouter;
