@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, version } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 interface ICounter extends Document {
   field: string;
@@ -28,5 +28,5 @@ export const getNextSequenceWithPrefix = async (
     { field },
     { $set: { sequenceValue: nextSequnceValue } }
   );
-  return `${prefix}${nextSequnceValue}`;
+  return `${prefix}-${nextSequnceValue}`;
 };
