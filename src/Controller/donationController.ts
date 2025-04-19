@@ -17,11 +17,19 @@ export const addDonationController = async (req: Request, res: Response) => {
 };
 export const fetchDonationController = async (req: Request, res: Response) => {
   try {
-    const { search = "", page = 0, pageSize = 5 } = req.query;
+    const {
+      search = "",
+      page = 0,
+      pageSize = 5,
+      dateRange = "{}",
+      quantity = "[]",
+    } = req.query;
     const { donationData, donationCount } = await fetchDonationService(
       search as string,
       Number(page),
-      Number(pageSize)
+      Number(pageSize),
+      JSON.parse(dateRange as string),
+      JSON.parse(quantity as string)
     );
     res.status(200).send({
       flag: "success",

@@ -1,6 +1,6 @@
 import { getNextSequenceWithPrefix } from "../Database/daoService";
 import donationModel from "../Models/donationModel";
-import type { DonationData } from "../types/common";
+import type { DateRangeType, DonationData } from "../types/common";
 
 export const addDonationService = async ({
   quantity,
@@ -33,7 +33,9 @@ export const addDonationService = async ({
 export const fetchDonationService = async (
   search: string,
   page: number,
-  pageSize: number
+  pageSize: number,
+  { startDate, endDate }: DateRangeType,
+  [min, max]: number[]
 ) => {
   try {
     const match = {
@@ -44,6 +46,20 @@ export const fetchDonationService = async (
           { productType: { $regex: `^${search}`, $options: "i" } },
           { donor: { $regex: `^${search}`, $options: "i" } },
           { donorMail: { $regex: `^${search}`, $options: "i" } },
+        ],
+      },
+    };
+    const filter = {
+      $match: {
+        $and: [
+          // {
+          //   time: {
+          //     $gte: startDate ? new Date(startDate) : new Date(),
+          //     $lte: endDate ? new Date(endDate) : new Date(),
+          //   },
+          // },
+          { quantity: { $gte: min ? Number(min) : 0 } },
+          max ? { quantity: { $lte: Number(max) } } : {},
         ],
       },
     };
@@ -62,12 +78,15 @@ export const fetchDonationService = async (
     const [donationData, donationCount] = await Promise.all([
       donationModel.aggregate([
         match,
+        filter,
         { $sort: { time: -1 } },
         { $skip: page * pageSize },
         { $limit: pageSize },
         project,
       ]),
-      donationModel.find(match.$match, { _id: 0 }).countDocuments(),
+      donationModel
+        .find({ ...match.$match, ...filter.$match }, { _id: 0 })
+        .countDocuments(),
     ]);
 
     return { donationData, donationCount };

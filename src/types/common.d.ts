@@ -23,3 +23,9 @@ export interface LoggedUserData {
   email: string;
   userType: "Reciever" | "Donor";
 }
+
+export type DateRangeType = {
+  startDate: Date;
+  endDate: Date;
+  selection: string;
+};
