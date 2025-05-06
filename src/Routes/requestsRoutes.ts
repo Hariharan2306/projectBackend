@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { requestDonationController } from "../Controller/requestsController";
+import {
+  fetchRequestsController,
+  requestDonationController,
+} from "../Controller/requestsController";
 
 const requestRouter = Router();
 
 requestRouter.post("/requestDonation", requestDonationController);
+requestRouter.get("/", fetchRequestsController);
 
 export default requestRouter;
