@@ -59,6 +59,8 @@ export const fetchRequestsService = async (
           { requesterMail: email },
           { quantity: { $gte: min ? Number(min) : 0 } },
           max ? { quantity: { $lte: Number(max) } } : {},
+          { withdrawn: false },
+          { accepted: false },
         ],
       },
     };
@@ -114,5 +116,15 @@ export const fetchRequestsService = async (
     return { requestsData, requestsCount };
   } catch (e) {
     throw new Error(`Failed fetching Requests - ${(e as Error).message}`);
+  }
+};
+
+export const withdrawRequestsService = async (requestId: string) => {
+  try {
+    await requestModel.updateOne({ requestId }, { $set: { withdrawn: true } });
+  } catch (e) {
+    throw new Error(
+      `Failed to Withdraw request ${requestId} - ${(e as Error).message}`
+    );
   }
 };

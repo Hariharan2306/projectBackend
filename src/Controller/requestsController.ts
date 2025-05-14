@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   fetchRequestsService,
   requestDonationService,
+  withdrawRequestsService,
 } from "../Service/requestsService";
 
 export const requestDonationController = async (
@@ -51,6 +52,24 @@ export const fetchRequestsController = async (req: Request, res: Response) => {
       requestsData,
       requestsCount,
     });
+  } catch (e) {
+    res.status(500).send({ flag: "error", error: (e as Error).message });
+  }
+};
+
+export const withdrawRequestsController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { requestId } = req.params;
+    await withdrawRequestsService(requestId);
+    res
+      .status(200)
+      .send({
+        flag: "success",
+        successMessage: "Request Successfully Withdrawn",
+      });
   } catch (e) {
     res.status(500).send({ flag: "error", error: (e as Error).message });
   }
