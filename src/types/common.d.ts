@@ -17,6 +17,7 @@ export interface DonationData extends LoggedUserData {
   location: string;
   time: Date;
   productType: string;
+  productDesc: string;
 }
 export interface LoggedUserData {
   userName: string;

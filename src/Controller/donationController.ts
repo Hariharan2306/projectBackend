@@ -23,13 +23,19 @@ export const fetchDonationController = async (req: Request, res: Response) => {
       pageSize = 5,
       dateRange = "{}",
       quantity = "[]",
+      activeToggle = "all",
+      userName,
+      email,
     } = req.query;
     const { donationData, donationCount } = await fetchDonationService(
       search as string,
       Number(page),
       Number(pageSize),
       JSON.parse(dateRange as string),
-      JSON.parse(quantity as string)
+      JSON.parse(quantity as string),
+      activeToggle as string,
+      userName as string,
+      email as string
     );
     res.status(200).send({
       flag: "success",

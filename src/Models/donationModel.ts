@@ -8,6 +8,7 @@ interface DonationData extends Document {
   productType: string;
   donor: string;
   donorMail: string;
+  productDesc: string;
 }
 
 const donationSchema: Schema = new Schema(
@@ -19,6 +20,7 @@ const donationSchema: Schema = new Schema(
     productType: { type: String },
     donor: { type: String },
     donorMail: { type: String },
+    productDesc: { type: String },
   },
   { versionKey: false, timestamps: true }
 );

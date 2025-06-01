@@ -9,6 +9,7 @@ export const addDonationService = async ({
   productType,
   userName,
   email,
+  productDesc,
 }: DonationData) => {
   try {
     await donationModel.create({
@@ -22,6 +23,7 @@ export const addDonationService = async ({
       productType,
       donor: userName,
       donorMail: email,
+      productDesc,
     });
   } catch (error) {
     throw new Error(
@@ -35,7 +37,10 @@ export const fetchDonationService = async (
   page: number,
   pageSize: number,
   { startDate, endDate }: DateRangeType,
-  [min, max]: number[]
+  [min, max]: number[],
+  activeToggle: string,
+  userName: string,
+  email: string
 ) => {
   try {
     const match = {
@@ -60,6 +65,8 @@ export const fetchDonationService = async (
           // },
           { quantity: { $gte: min ? Number(min) : 0 } },
           max ? { quantity: { $lte: Number(max) } } : {},
+          activeToggle === "mine" ? { donor: userName } : {},
+          activeToggle === "mine" ? { donorMail: email } : {},
         ],
       },
     };
