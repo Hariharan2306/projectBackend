@@ -2,6 +2,7 @@ import get from "lodash/get";
 import { getNextSequenceWithPrefix } from "../Database/daoService";
 import requestModel from "../Models/requestModel";
 import { DateRangeType } from "../types/common";
+import donationModel from "../Models/donationModel";
 
 export const requestDonationService = async (
   donationId: string,
@@ -10,12 +11,16 @@ export const requestDonationService = async (
   requesterMail: string
 ) => {
   try {
+    const donorDetails = await donationModel
+      .findOne({ donationId }, { donor: 1, _id: 0 })
+      .lean();
     await requestModel.create({
       requestId: await getNextSequenceWithPrefix("requests_count", "Request"),
       donationId,
       requestedBy,
       requesterMail,
       quantity,
+      donorName: donorDetails!.donor,
     });
   } catch (e) {
     throw new Error(
@@ -60,7 +65,7 @@ export const fetchRequestsService = async (
           { quantity: { $gte: min ? Number(min) : 0 } },
           max ? { quantity: { $lte: Number(max) } } : {},
           { withdrawn: false },
-          { accepted: false },
+          { approvalStatus: "Pending" },
         ],
       },
     };

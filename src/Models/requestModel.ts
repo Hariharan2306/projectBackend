@@ -5,6 +5,7 @@ interface RequestData extends Document {
   donationId: string;
   requestedBy: string;
   requesterMail: string;
+  donorName: string;
   quantity: number;
   withdrawn: boolean;
   accepted: boolean;
@@ -16,9 +17,10 @@ const requestSchema: Schema = new Schema(
     donationId: { type: String },
     requestedBy: { type: String },
     requesterMail: { type: String },
+    donorName: { type: String },
     quantity: { type: Number },
     withdrawn: { type: Boolean, default: false },
-    accepted: { type: Boolean, default: false },
+    approvalStatus: { type: String, default: "Pending" },
   },
   { versionKey: false, timestamps: true }
 );
