@@ -80,6 +80,7 @@ export const fetchDonationService = async (
         time: 1,
         productType: 1,
         donor: 1,
+        productDesc: 1,
       },
     };
     const [donationData, donationCount] = await Promise.all([
