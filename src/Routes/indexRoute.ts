@@ -10,5 +10,6 @@ indexRouter.use("/users", usersRouter);
 indexRouter.use("/donations", donationRouter);
 indexRouter.use("/requests", requestRouter);
 indexRouter.use("/approvals", approvalRouter);
+indexRouter.use("/dashboard", approvalRouter);
 
 export default indexRouter;
