@@ -57,12 +57,12 @@ export const fetchDonationService = async (
     const filter = {
       $match: {
         $and: [
-          // {
-          //   time: {
-          //     $gte: startDate ? new Date(startDate) : new Date(),
-          //     $lte: endDate ? new Date(endDate) : new Date(),
-          //   },
-          // },
+          {
+            time: {
+              $gte: startDate ? new Date(startDate) : new Date(),
+              $lte: endDate ? new Date(endDate) : new Date(),
+            },
+          },
           { quantity: { $gte: min ? Number(min) : 0 } },
           max ? { quantity: { $lte: Number(max) } } : {},
           activeToggle === "mine" ? { donor: userName } : {},
