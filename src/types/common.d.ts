@@ -25,6 +25,13 @@ export interface LoggedUserData {
   userType: "Reciever" | "Donor";
 }
 
+export type Payload = {
+  userName: string;
+  email: string;
+  userType: "Reciever" | "Donor";
+  userLocation: string;
+};
+
 export type DateRangeType = {
   startDate: Date;
   endDate: Date;

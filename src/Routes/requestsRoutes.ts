@@ -4,11 +4,16 @@ import {
   requestDonationController,
   withdrawRequestsController,
 } from "../Controller/requestsController";
+import { verifyToken } from "../Service/serviceHelper";
 
 const requestRouter = Router();
 
-requestRouter.get("/", fetchRequestsController);
-requestRouter.post("/requestDonation", requestDonationController);
-requestRouter.put("/withdraw/:requestId", withdrawRequestsController);
+requestRouter.get("/", verifyToken, fetchRequestsController);
+requestRouter.post("/requestDonation", verifyToken, requestDonationController);
+requestRouter.put(
+  "/withdraw/:requestId",
+  verifyToken,
+  withdrawRequestsController
+);
 
 export default requestRouter;
